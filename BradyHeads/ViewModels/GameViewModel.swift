@@ -40,12 +40,11 @@ final class GameViewModel: ObservableObject {
     }
 
     func startWaitingForFlat() {
-        #if targetEnvironment(simulator)
-        // Simulator: skip flat detection and go straight to countdown
-        beginCountdown()
-        #else
         motionManager.startWatchingForFlat()
-        #endif
+    }
+
+    func startManually() {
+        beginCountdown()
     }
 
     private func setupMotionCallbacks() {
@@ -105,9 +104,9 @@ final class GameViewModel: ObservableObject {
         cards[currentIndex].status = .correct
         haptics.cardCorrect()
         showCorrectOverlay = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [weak self] in
+        advanceCard()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) { [weak self] in
             self?.showCorrectOverlay = false
-            self?.advanceCard()
         }
     }
 
@@ -116,9 +115,9 @@ final class GameViewModel: ObservableObject {
         cards[currentIndex].status = .passed
         haptics.cardPassed()
         showPassOverlay = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [weak self] in
+        advanceCard()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) { [weak self] in
             self?.showPassOverlay = false
-            self?.advanceCard()
         }
     }
 

@@ -2,6 +2,9 @@ import SwiftUI
 
 struct GameView: View {
     @ObservedObject var viewModel: GameViewModel
+    var onEnd: () -> Void
+
+    @State private var showEndConfirmation = false
 
     var body: some View {
         ZStack {
@@ -18,6 +21,12 @@ struct GameView: View {
                 unlockOrientation()
             }
         }
+        .alert("End Game?", isPresented: $showEndConfirmation) {
+            Button("End Game", role: .destructive) { onEnd() }
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("Your current game will be lost.")
+        }
     }
 
     private var gameplayContent: some View {
@@ -33,9 +42,6 @@ struct GameView: View {
                 tiltHints
             }
 
-            CardOverlayView(isCorrect: true, isVisible: viewModel.showCorrectOverlay)
-            CardOverlayView(isCorrect: false, isVisible: viewModel.showPassOverlay)
-
             #if targetEnvironment(simulator)
             simulatorControls
             #endif
@@ -44,6 +50,12 @@ struct GameView: View {
 
     private var timerBar: some View {
         HStack {
+            Button("End") { showEndConfirmation = true }
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(.white.opacity(0.8))
+                .padding(.leading, 20)
+                .padding(.top, 16)
+
             Spacer()
             ZStack {
                 Circle()
@@ -75,7 +87,11 @@ struct GameView: View {
 
     private var wordCard: some View {
         VStack(spacing: 16) {
-            if let card = viewModel.currentCard {
+            if viewModel.showCorrectOverlay {
+                feedbackLabel(isCorrect: true)
+            } else if viewModel.showPassOverlay {
+                feedbackLabel(isCorrect: false)
+            } else if let card = viewModel.currentCard {
                 Text(card.word)
                     .font(.system(size: 64, weight: .black, design: .rounded))
                     .foregroundStyle(.white)
@@ -85,18 +101,19 @@ struct GameView: View {
                     .padding(.horizontal, 32)
                     .shadow(color: .black.opacity(0.2), radius: 4, y: 2)
                     .id(card.id)
-                    .transition(.asymmetric(
-                        insertion: .opacity.animation(.easeIn(duration: 0.2)),
-                        removal: .opacity.animation(.easeOut(duration: 0.1))
-                    ))
             }
+        }
+    }
 
-            let remaining = viewModel.cards.count - viewModel.currentIndex - 1
-            if remaining > 0 {
-                Text("\(remaining) card\(remaining == 1 ? "" : "s") left")
-                    .font(.caption)
-                    .foregroundStyle(.white.opacity(0.7))
-            }
+    @ViewBuilder
+    private func feedbackLabel(isCorrect: Bool) -> some View {
+        VStack(spacing: 12) {
+            Image(systemName: isCorrect ? "checkmark.circle.fill" : "arrow.forward.circle.fill")
+                .font(.system(size: 72))
+                .foregroundStyle(.white)
+            Text(isCorrect ? "CORRECT!" : "PASS")
+                .font(.system(size: 52, weight: .black, design: .rounded))
+                .foregroundStyle(.white)
         }
     }
 

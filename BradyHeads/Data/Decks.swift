@@ -5,7 +5,7 @@ enum DeckLibrary {
         CardDeck(
             name: "Animals",
             emoji: "🐘",
-            color: .green,
+            colorName: .green,
             cards: [
                 "Elephant", "Giraffe", "Penguin", "Kangaroo", "Flamingo",
                 "Crocodile", "Panda", "Cheetah", "Gorilla", "Dolphin",
@@ -16,7 +16,7 @@ enum DeckLibrary {
         CardDeck(
             name: "Parks & Rec",
             emoji: "🏛️",
-            color: .purple,
+            colorName: .purple,
             cards: [
                 "Leslie Knope", "Ron Swanson", "April Ludgate", "Andy Dwyer",
                 "Ben Wyatt", "Chris Traeger", "Tom Haverford", "Ann Perkins",
@@ -28,7 +28,7 @@ enum DeckLibrary {
         CardDeck(
             name: "Family Members",
             emoji: "👨‍👩‍👧‍👦",
-            color: .orange,
+            colorName: .orange,
             cards: [
                 "Mom", "Dad", "Grandma", "Grandpa", "Uncle Mike",
                 "Aunt Sarah", "Cousin Jake", "Baby Emma", "Uncle Tom",
@@ -39,7 +39,7 @@ enum DeckLibrary {
         CardDeck(
             name: "Favorite Memories",
             emoji: "📸",
-            color: .pink,
+            colorName: .pink,
             cards: [
                 "Beach Vacation", "Christmas Morning", "First Day of School",
                 "Birthday Party", "Camping Trip", "Disney World", "Road Trip",
@@ -51,7 +51,7 @@ enum DeckLibrary {
         CardDeck(
             name: "Movies",
             emoji: "🎬",
-            color: .red,
+            colorName: .red,
             cards: [
                 "Toy Story", "The Lion King", "Home Alone", "Elf", "Shrek",
                 "Finding Nemo", "The Incredibles", "Frozen", "Moana", "Coco",
@@ -62,7 +62,7 @@ enum DeckLibrary {
         CardDeck(
             name: "Sports",
             emoji: "⚽",
-            color: .blue,
+            colorName: .blue,
             cards: [
                 "Soccer", "Basketball", "Football", "Baseball", "Tennis",
                 "Swimming", "Gymnastics", "Volleyball", "Golf", "Hockey",
@@ -73,7 +73,7 @@ enum DeckLibrary {
         CardDeck(
             name: "Pop Culture",
             emoji: "⭐",
-            color: Color(red: 0.9, green: 0.6, blue: 0.1),
+            colorName: .yellow,
             cards: [
                 "Taylor Swift", "Netflix", "TikTok", "Beyoncé", "SpongeBob",
                 "Minecraft", "Fortnite", "The Avengers", "Harry Potter", "Star Wars",
@@ -84,7 +84,7 @@ enum DeckLibrary {
         CardDeck(
             name: "Food",
             emoji: "🍕",
-            color: Color(red: 0.8, green: 0.3, blue: 0.1),
+            colorName: .brown,
             cards: [
                 "Pizza", "Sushi", "Tacos", "Cheesecake", "Ramen",
                 "Cheeseburger", "Lasagna", "Guacamole", "Fried Chicken", "Pancakes",
@@ -95,7 +95,7 @@ enum DeckLibrary {
         CardDeck(
             name: "Geography",
             emoji: "🌍",
-            color: .teal,
+            colorName: .teal,
             cards: [
                 "Eiffel Tower", "Amazon River", "Tokyo", "Grand Canyon", "Niagara Falls",
                 "Great Wall of China", "Mount Everest", "Sahara Desert", "Great Barrier Reef", "Machu Picchu",
@@ -106,7 +106,7 @@ enum DeckLibrary {
         CardDeck(
             name: "Music",
             emoji: "🎵",
-            color: Color(red: 0.3, green: 0.1, blue: 0.7),
+            colorName: .indigo,
             cards: [
                 "The Beatles", "Guitar", "Drum Solo", "Michael Jackson", "Elvis Presley",
                 "Piano", "Jazz", "Hip Hop", "Rock and Roll", "Opera",

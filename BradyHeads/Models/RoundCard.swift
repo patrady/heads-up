@@ -5,13 +5,7 @@ enum CardStatus {
 }
 
 struct RoundCard: Identifiable {
-    let id: UUID
+    let id: UUID = UUID()
     let word: String
-    var status: CardStatus
-
-    init(word: String) {
-        self.id = UUID()
-        self.word = word
-        self.status = .pending
-    }
+    var status: CardStatus = .pending
 }

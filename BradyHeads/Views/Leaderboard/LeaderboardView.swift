@@ -2,6 +2,7 @@ import SwiftUI
 
 struct LeaderboardView: View {
     @StateObject private var viewModel = LeaderboardViewModel()
+    @State private var showClearConfirmation = false
 
     var body: some View {
         NavigationStack {
@@ -26,14 +27,22 @@ struct LeaderboardView: View {
                 if !viewModel.entries.isEmpty {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button("Clear") {
-                            LeaderboardStore.shared.clearAll()
-                            viewModel.load()
+                            showClearConfirmation = true
                         }
                         .foregroundStyle(.red)
                     }
                 }
             }
             .onAppear { viewModel.load() }
+            .alert("Clear Leaderboard?", isPresented: $showClearConfirmation) {
+                Button("Clear All", role: .destructive) {
+                    LeaderboardStore.shared.clearAll()
+                    viewModel.load()
+                }
+                Button("Cancel", role: .cancel) { }
+            } message: {
+                Text("All scores will be permanently deleted.")
+            }
         }
     }
 }

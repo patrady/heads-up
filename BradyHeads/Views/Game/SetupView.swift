@@ -20,7 +20,7 @@ struct SetupView: View {
                 countdownView
                     .navigationBarHidden(true)
             case .playing, .finished:
-                GameView(viewModel: viewModel)
+                GameView(viewModel: viewModel, onEnd: { viewModel.cleanup(); dismiss() })
                     .navigationBarHidden(true)
             }
         }
@@ -67,10 +67,16 @@ struct SetupView: View {
                 Spacer()
 
                 #if targetEnvironment(simulator)
-                Text("Simulator: Game starts automatically")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                    .padding(.bottom, 40)
+                Button("Start (Simulator)") {
+                    viewModel.startManually()
+                }
+                .font(.headline)
+                .padding(.horizontal, 32)
+                .padding(.vertical, 14)
+                .background(deck.color)
+                .foregroundStyle(.white)
+                .clipShape(Capsule())
+                .padding(.bottom, 40)
                 #endif
             }
         }

@@ -21,9 +21,7 @@ struct ResultsView: View {
                     Button("Done") { dismiss() }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Play Again") {
-                        viewModel.restartWithSameDeck()
-                    }
+                    Button("Play Again") { dismiss() }
                 }
             }
         }
@@ -79,7 +77,7 @@ struct ResultsView: View {
 
     private var cardsSection: some View {
         Section("Cards") {
-            ForEach(viewModel.cards) { card in
+            ForEach(viewModel.playedCards) { card in
                 HStack(spacing: 12) {
                     Image(systemName: iconName(for: card.status))
                         .foregroundStyle(iconColor(for: card.status))
